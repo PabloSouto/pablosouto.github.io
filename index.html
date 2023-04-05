@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Mi sitio web</title>
+    <meta charset="UTF-8">
+    <title>Selecciona una asignatura</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -36,10 +37,19 @@
     </style>
   </head>
   <body>
-    <h1>Bienvenido a mi sitio web</h1>
     <div class="container">
-      <button class="button" onclick="location.href='login.html'">Iniciar sesión</button>
-      <button class="button" onclick="location.href='register.html'">Registrarse</button>
+      <div>
+        <h1>Selecciona una asignatura</h1>
+        <h1>Primer cuatrimestre</h1>
+        <div>
+          <button class="button" onclick="location.href='indexcalculo.html'">Cálculo</button>
+          <button class="button" onclick="location.href='indexalgebra.html'">Álgebra</button>
+          <button class="button" onclick="location.href='indexampliacion.html'">Ampliación de cálculo/matemáticas</button>
+          <h1>Segundo cuatrimestre</h1>
+          <button class="button" onclick="location.href='indexestadistica.html'">Estadística</button>
+          <button class="button" onclick="location.href='indexmetodos.html'">Métodos numéricos</button>
+        </div>
+      </div>
     </div>
   </body>
 </html>
