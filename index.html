@@ -1,55 +1,63 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Selecciona una asignatura</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f7f7f7;
-      }
+<head>
+	<title>Miniaturas de Videos</title>
+</head>
+<body>
+	<h1>Mis Videos Favoritos</h1>
+	<ul id="videos"></ul>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			var username = prompt("Introduce tu nombre de usuario:");
+			var password = prompt("Introduce tu contraseña:");
 
-      h1 {
-        text-align: center;
-        color: #333;
-      }
+			$.ajax({
+				url: "pass.txt",
+				dataType: "text",
+				success: function(data) {
+					var lines = data.split('\n');
+					var authorized = false;
 
-      .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
+					for (var i = 0; i < lines.length; i++) {
+						var line = lines[i].split(':');
+						var storedUsername = line[0].trim();
+						var storedPassword = line[1].trim();
 
-      .button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        margin: 10px;
-      }
+						if (storedUsername === username && storedPassword === password) {
+							authorized = true;
+							break;
+						}
+					}
 
-      .button:hover {
-        background-color: #45a049;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <div>
-        <h1>Selecciona una asignatura</h1>
-        <h1>Primer cuatrimestre</h1>
-        <div>
-          <button class="button" onclick="location.href='indexcalculo.html'">Cálculo</button>
-          <button class="button" onclick="location.href='indexalgebra.html'">Álgebra</button>
-          <button class="button" onclick="location.href='indexampliacion.html'">Ampliación de cálculo/matemáticas</button>
-          <h1>Segundo cuatrimestre</h1>
-          <button class="button" onclick="location.href='indexestadistica.html'">Estadística</button>
-          <button class="button" onclick="location.href='indexmetodos.html'">Métodos numéricos</button>
-        </div>
-      </div>
-    </div>
-  </body>
+					if (authorized) {
+						var playlistId = 'T03jb-pXNN4';
+						var apiKey = 'AIzaSyALn9x1hcL31xvxwb2vUOObbNO5VoS1BjI';
+						var url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=' + playlistId + '&key=' + apiKey;
+
+						$.getJSON(url, function(data) {
+							var items = data.items;
+							$.each(items, function(index, item) {
+								var videoId = item.snippet.resourceId.videoId;
+								var title = item.snippet.title;
+								var thumbnail = item.snippet.thumbnails.medium.url;
+								var videoUrl = 'https://www.youtube.com/watch?v=' + videoId;
+
+								$('#videos').append('<li><a href="' + videoUrl + '"><img src="' + thumbnail + '" alt="' + title + '"/><br/>' + title + '</a></li>');
+							});
+						});
+					} else {
+						alert("Nombre de usuario o contraseña incorrectos. Acceso denegado.");
+						window.location.href = "about:blank";
+					}
+				},
+				error: function() {
+					alert("No se pudo cargar el archivo de contraseñas.");
+					window.location.href = "about:blank";
+				}
+			});
+		});
+	</script>
+</body>
 </html>
