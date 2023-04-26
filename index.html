@@ -1,63 +1,78 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Miniaturas de Videos</title>
+	<meta charset="utf-8">
+	<title>Mi Lista de Reproducción de YouTube</title>
 </head>
 <body>
-	<h1>Mis Videos Favoritos</h1>
-	<ul id="videos"></ul>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<h1>Mi Lista de Reproducción de YouTube</h1>
+	<div id="videos"></div>
+
+	<script src="https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=25&playlistId=PLErDSQwa3VQ07GsMM3wmJ3J0_otDXWLW2&key=AIzaSyALn9x1hcL31xvxwb2vUOObbNO5VoS1BjI"></script>
+
 	<script>
-		$(document).ready(function() {
-			var username = prompt("Introduce tu nombre de usuario:");
-			var password = prompt("Introduce tu contraseña:");
+		function mostrarVideos(data) {
+			var videos = data.items;
+			var videoHTML = '';
+			for (var i = 0; i < videos.length; i++) {
+				var videoId = videos[i].snippet.resourceId.videoId;
+				var videoTitle = videos[i].snippet.title;
+				var videoThumbnail = videos[i].snippet.thumbnails.default.url;
+				var videoLink = 'https://www.youtube.com/watch?v=' + videoId;
 
-			$.ajax({
-				url: "pass.txt",
-				dataType: "text",
-				success: function(data) {
-					var lines = data.split('\n');
-					var authorized = false;
+				videoHTML += '<div>';
+				videoHTML += '<a href="' + videoLink + '">';
+				videoHTML += '<img src="' + videoThumbnail + '" alt="' + videoTitle + '">';
+				videoHTML += '<h2>' + videoTitle + '</h2>';
+				videoHTML += '</a>';
+				videoHTML += '</div>';
+			}
+			document.getElementById('videos').innerHTML = videoHTML;
+		}
+	</script>
 
+	<script>
+		function checkPassword() {
+			var password = document.getElementById("password").value;
+			var file = "pass.txt";
+
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', file, true);
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState === 4 && xhr.status === 200) {
+					var lines = xhr.responseText.split('\n');
 					for (var i = 0; i < lines.length; i++) {
 						var line = lines[i].split(':');
-						var storedUsername = line[0].trim();
-						var storedPassword = line[1].trim();
-
-						if (storedUsername === username && storedPassword === password) {
-							authorized = true;
-							break;
+						if (line[0] === "username" && line[1] === password) {
+							return true;
 						}
 					}
-
-					if (authorized) {
-						var playlistId = 'T03jb-pXNN4';
-						var apiKey = 'AIzaSyALn9x1hcL31xvxwb2vUOObbNO5VoS1BjI';
-						var url = 'https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=' + playlistId + '&key=' + apiKey;
-
-						$.getJSON(url, function(data) {
-							var items = data.items;
-							$.each(items, function(index, item) {
-								var videoId = item.snippet.resourceId.videoId;
-								var title = item.snippet.title;
-								var thumbnail = item.snippet.thumbnails.medium.url;
-								var videoUrl = 'https://www.youtube.com/watch?v=' + videoId;
-
-								$('#videos').append('<li><a href="' + videoUrl + '"><img src="' + thumbnail + '" alt="' + title + '"/><br/>' + title + '</a></li>');
-							});
-						});
-					} else {
-						alert("Nombre de usuario o contraseña incorrectos. Acceso denegado.");
-						window.location.href = "about:blank";
-					}
-				},
-				error: function() {
-					alert("No se pudo cargar el archivo de contraseñas.");
-					window.location.href = "about:blank";
+					alert("Contraseña incorrecta.");
+					return false;
 				}
-			});
+			};
+			xhr.send();
+		}
+
+		document.getElementById("submit").addEventListener("click", function(event) {
+			event.preventDefault();
+			if (checkPassword()) {
+				document.getElementById("videos").style.display = "block";
+			}
 		});
 	</script>
+
+	<form id="login-form">
+		<label for="password">Contraseña:</label>
+		<input type="password" id="password" name="password">
+		<input type="submit" id="submit" value="Ingresar">
+	</form>
+
+	<style>
+		#videos {
+			display: none;
+		}
+	</style>
+
 </body>
 </html>
