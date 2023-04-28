@@ -8,7 +8,7 @@
 	<h1>Mi Lista de Reproducción de YouTube</h1>
 	<div id="videos"></div>
 
-	<script src="https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=25&playlistId=PLErDSQwa3VQ07GsMM3wmJ3J0_otDXWLW2&key=AIzaSyALn9x1hcL31xvxwb2vUOObbNO5VoS1BjI"></script>
+	<script src="https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=25&playlistId=PLErDSQwa3VQ0pXIUb5wsarQrsfIeUaPt1&key=AIzaSyALn9x1hcL31xvxwb2vUOObbNO5VoS1BjI"></script>
 
 	<script>
 		function mostrarVideos(data) {
@@ -30,49 +30,5 @@
 			document.getElementById('videos').innerHTML = videoHTML;
 		}
 	</script>
-
-	<script>
-		function checkPassword() {
-			var password = document.getElementById("password").value;
-			var file = "pass.txt";
-
-			var xhr = new XMLHttpRequest();
-			xhr.open('GET', file, true);
-			xhr.onreadystatechange = function() {
-				if (xhr.readyState === 4 && xhr.status === 200) {
-					var lines = xhr.responseText.split('\n');
-					for (var i = 0; i < lines.length; i++) {
-						var line = lines[i].split(':');
-						if (line[0] === "username" && line[1] === password) {
-							return true;
-						}
-					}
-					alert("Contraseña incorrecta.");
-					return false;
-				}
-			};
-			xhr.send();
-		}
-
-		document.getElementById("submit").addEventListener("click", function(event) {
-			event.preventDefault();
-			if (checkPassword()) {
-				document.getElementById("videos").style.display = "block";
-			}
-		});
-	</script>
-
-	<form id="login-form">
-		<label for="password">Contraseña:</label>
-		<input type="password" id="password" name="password">
-		<input type="submit" id="submit" value="Ingresar">
-	</form>
-
-	<style>
-		#videos {
-			display: none;
-		}
-	</style>
-
 </body>
 </html>
