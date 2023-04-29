@@ -48,7 +48,7 @@
   </head>
   <body>
     <h1>Iniciar sesión en Álgebra</h1>
-    <form>
+    <form onsubmit="return validateForm()">
       <label for="username">Usuario</label>
       <input type="text" id="username" name="username" placeholder="Introduce tu usuario...">
 
@@ -57,5 +57,34 @@
 
       <input type="submit" value="Iniciar sesión">
     </form>
+
+    <script>
+      function validateForm() {
+        // Obtener los valores de usuario y contraseña ingresados por el usuario
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        // Leer el archivo pass.txt usando AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "pass.txt", false);
+        xhr.send();
+
+        // Buscar coincidencias en el archivo
+        var lines = xhr.responseText.split("\n");
+        for (var i = 0; i < lines.length; i++) {
+          var parts = lines[i].split(":");
+          if (parts[0] == username && parts[1] == password) {
+            // Si encontramos una coincidencia, redireccionar al usuario a la página de videos
+            window.location.href = "videos.html";
+            return false;
+          }
+        }
+
+        // Si no encontramos ninguna coincidencia, mostrar un mensaje de error
+        alert("Usuario o contraseña incorrectos");
+        return false;
+      }
+    </script>
   </body>
 </html>
+
