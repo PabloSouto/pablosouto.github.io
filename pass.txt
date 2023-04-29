@@ -1,3 +1,6 @@
 admin:admin
 pablo:master
 12345:12345
+vero:vero
+jandro:aran
+pablo:12345
