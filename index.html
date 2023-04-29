@@ -1,34 +1,55 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<title>Mi Lista de Reproducción de YouTube</title>
-</head>
-<body>
-	<h1>Mi Lista de Reproducción de YouTube</h1>
-	<div id="videos"></div>
+  <head>
+    <meta charset="UTF-8">
+    <title>Selecciona una asignatura</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f7f7f7;
+      }
 
-	<script src="https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=25&playlistId=PLErDSQwa3VQ0pXIUb5wsarQrsfIeUaPt1&key=AIzaSyALn9x1hcL31xvxwb2vUOObbNO5VoS1BjI"></script>
+      h1 {
+        text-align: center;
+        color: #333;
+      }
 
-	<script>
-		function mostrarVideos(data) {
-			var videos = data.items;
-			var videoHTML = '';
-			for (var i = 0; i < videos.length; i++) {
-				var videoId = videos[i].snippet.resourceId.videoId;
-				var videoTitle = videos[i].snippet.title;
-				var videoThumbnail = videos[i].snippet.thumbnails.default.url;
-				var videoLink = 'https://www.youtube.com/watch?v=' + videoId;
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
 
-				videoHTML += '<div>';
-				videoHTML += '<a href="' + videoLink + '">';
-				videoHTML += '<img src="' + videoThumbnail + '" alt="' + videoTitle + '">';
-				videoHTML += '<h2>' + videoTitle + '</h2>';
-				videoHTML += '</a>';
-				videoHTML += '</div>';
-			}
-			document.getElementById('videos').innerHTML = videoHTML;
-		}
-	</script>
-</body>
+      .button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 10px;
+      }
+
+      .button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div>
+        <h1>Selecciona una asignatura</h1>
+        <h1>Primer cuatrimestre</h1>
+        <div>
+          <button class="button" onclick="location.href='indexcalculo.html'">Cálculo</button>
+          <button class="button" onclick="location.href='indexalgebra.html'">Álgebra</button>
+          <button class="button" onclick="location.href='indexampliacion.html'">Ampliación de cálculo/matemáticas</button>
+          <h1>Segundo cuatrimestre</h1>
+          <button class="button" onclick="location.href='indexestadistica.html'">Estadística</button>
+          <button class="button" onclick="location.href='indexmetodos.html'">Métodos numéricos</button>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
