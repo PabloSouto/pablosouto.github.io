@@ -47,14 +47,37 @@
       }
     </style>
     <script>
-      function mostrarPopup(respuesta) {
-        alert(respuesta);
+      function validarFormulario() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "pass.txt", true);
+
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              var lines = xhr.responseText.split("\n");
+              for (var i = 0; i < lines.length; i++) {
+                if (lines[i].trim() === username + ":" + password) {
+                  alert("Están");
+                  return;
+                }
+              }
+              alert("No están");
+            } else {
+              alert("No se puede acceder al archivo");
+            }
+          }
+        };
+
+        xhr.send();
       }
     </script>
   </head>
   <body>
     <h1>Iniciar sesión en Álgebra</h1>
-    <form onsubmit="enviarDatos(event)">
+    <form onsubmit="validarFormulario(); return false;">
       <label for="username">Usuario</label>
       <input type="text" id="username" name="username" placeholder="Introduce tu usuario...">
 
@@ -63,25 +86,9 @@
 
       <input type="submit" value="Iniciar sesión">
     </form>
-
-    <script>
-      function enviarDatos(event) {
-        event.preventDefault();
-        var username = document.getElementById("username").value;
-        var password = document.getElementById("password").value;
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-          if (this.readyState == 4 && this.status == 200) {
-            mostrarPopup(this.responseText);
-          }
-        };
-        xhttp.open("POST", "verificar_usuario.py", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send("username=" + username + "&password=" + password);
-      }
-    </script>
   </body>
 </html>
+
 
 
 
