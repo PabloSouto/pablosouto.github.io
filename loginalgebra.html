@@ -10,7 +10,7 @@
 
       h1 {
         text-align: center;
-        color: greenyellow;
+        color: white;
       }
 
       form {
@@ -19,6 +19,7 @@
         padding: 20px;
         width: 300px;
         margin: 0 auto;
+        border: black;
       }
 
       input[type="text"],
@@ -26,16 +27,16 @@
         width: 100%;
         padding: 10px;
         margin: 5px 0;
-        border: 1px solid #ccc;
+        border: 1px solid black;
         border-radius: 4px;
         box-sizing: border-box;
       }
 
       input[type="submit"] {
-        background-color: #00ff0d;
+        background-color: white;
         color: black;
         padding: 10px 20px;
-        border: none;
+        border: 2px solid black;
         border-radius: 4px;
         cursor: pointer;
         float: right;
@@ -46,16 +47,14 @@
       }
     </style>
     <script>
-      function mostrarPopup() {
-        var username = document.getElementById("username").value;
-        var password = document.getElementById("password").value;
-        alert("Usuario: " + username + "\nContraseña: " + password);
+      function mostrarPopup(respuesta) {
+        alert(respuesta);
       }
     </script>
   </head>
   <body>
     <h1>Iniciar sesión en Álgebra</h1>
-    <form onsubmit="mostrarPopup(); return false;">
+    <form onsubmit="enviarDatos(event)">
       <label for="username">Usuario</label>
       <input type="text" id="username" name="username" placeholder="Introduce tu usuario...">
 
@@ -64,8 +63,27 @@
 
       <input type="submit" value="Iniciar sesión">
     </form>
+
+    <script>
+      function enviarDatos(event) {
+        event.preventDefault();
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            mostrarPopup(this.responseText);
+          }
+        };
+        xhttp.open("POST", "verificar_usuario.py", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.send("username=" + username + "&password=" + password);
+      }
+    </script>
   </body>
 </html>
+
+
 
 
 
