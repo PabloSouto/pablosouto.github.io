@@ -6,6 +6,7 @@
       body {
         font-family: Arial, sans-serif;
         background-color: black;
+        align-items: center;
       }
 
       h1 {
@@ -46,6 +47,21 @@
         background-color: grey;
         color: white;
       }
+      .video-container {
+        text-align: center;
+        margin-bottom: 20px;
+        display: inline-block;
+        margin: auto;
+      }
+      .video-container {
+			text-align: center;
+			margin-bottom: 20px;
+			display: inline-block;
+		  }
+		  .video-title {
+		  	font-weight: bold;
+		  	margin-top: 10px;
+		  }
     </style>
       <script>
         function validarFormulario() {
@@ -78,7 +94,36 @@
       </script>
     </head>
     <body>
-      <h1>Iniciar sesión en Estadística</h1>
+      <h1>Clases de Teoría</h1>
+      <div id="videos">
+        <div class="video-container">
+          <iframe width="280" height="157" src="https://www.youtube.com/embed/jnyRIX906Xw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <h2 class="video-title">Título del primer video</h2>
+        </div>
+        <div class="video-container">
+          <iframe width="280" height="157" src="https://www.youtube.com/embed/vtXa6-KVeT4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <h2 class="video-title">Título del segundo video</h2>
+        </div>
+        <div class="video-container">
+          <iframe width=width="280" height="157" src="https://www.youtube.com/embed/vtXa6-KVeT4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <h2 class="video-title">Título del tercer video</h2>
+        </div>
+      </div>
+      <div id="videos">
+        <div class="video-container">
+          <iframe width="280" height="157" src="https://www.youtube.com/embed/jnyRIX906Xw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <h2 class="video-title">Título del primer video</h2>
+        </div>
+        <div class="video-container">
+          <iframe width="280" height="157" src="https://www.youtube.com/embed/vtXa6-KVeT4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <h2 class="video-title">Título del segundo video</h2>
+        </div>
+        <div class="video-container">
+          <iframe width=width="280" height="157" src="https://www.youtube.com/embed/vtXa6-KVeT4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <h2 class="video-title">Título del tercer video</h2>
+        </div>
+      </div>
+      <h1>Iniciar sesión para clases prácticas</h1>
       <form onsubmit="validarFormulario(); return false;">
         <label for="username">Usuario</label>
         <input type="text" id="username" name="username" placeholder="Introduce tu usuario...">
@@ -88,5 +133,13 @@
     
         <input type="submit" value="Iniciar sesión">
       </form>
+      <div id="videos">
+        <div class="video-container">
+          <iframe width="280" height="157" src="https://www.youtube.com/embed/jnyRIX906Xw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <h2 class="video-title">Título del primer video</h2>
+        </div>
+        
+      </div>
+      
     </body>
     </html>
