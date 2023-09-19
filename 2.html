@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Métodos Numéricos</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: black;
+        align-items: center;
+      }
+
+      h1 {
+        text-align: center;
+        color: white;
+        font: size 120px; 
+      }
+
+      form {
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 20px;
+        width: 448px;
+        margin: 0 auto;
+        border: black;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid black;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      input[type="submit"] {
+        background-color: white;
+        color: black;
+        padding: 10px 20px;
+        border: 2px solid black;
+        border-radius: 4px;
+        cursor: pointer;
+        float: right;
+      }
+
+      input[type="submit"]:hover {
+        background-color: grey;
+        color: white;
+      }
+      #videos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .video-container {
+        text-align: center;
+        margin-bottom: 20px;
+        display: inline-block;
+        margin: auto;
+      }
+		  .video-title {
+		  	font-weight: bold;
+		  	margin-top: 10px;
+        color: white;
+		  }
+    </style>
+      
+
+<script>
+  function togglePassword() {
+    var passwordInput = document.getElementById("password");
+    var passwordButton = document.getElementById("showPasswordButton");
+
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      passwordButton.textContent = "Ocultar Contraseña";
+    } else {
+      passwordInput.type = "password";
+      passwordButton.textContent = "Mostrar Contraseña";
+    }
+  }
+
+  function validarFormulario() {
+          var username = document.getElementById("username").value;
+          var password = document.getElementById("password").value;
+      
+          var xhr = new XMLHttpRequest();
+          xhr.open("GET", "passnumerico.txt", true);
+      
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+              if (xhr.status === 200) {
+                var lines = xhr.responseText.split("\n");
+                for (var i = 0; i < lines.length; i++) {
+                  if (lines[i].trim() === username + ":" + password) {
+                    
+                    window.location.href = "videosnumerico.html";
+                    return;
+                  }
+                }
+                alert("Usuari@ y/o contraseña incorrectos");
+              } else {
+                alert("No se puede acceder al archivo");
+              }
+            }
+          };
+      
+          xhr.send();
+        }
+</script>
+    </head>
+    <body>
+      <p style="font-size: 48px;color: white;text-align: center;font-family: Arial, sans-serif;">Métodos Numéricos</p>
+      <h1>Iniciar sesión para clases prácticas</h1>
+      <form onsubmit="validarFormulario(); return false;">
+        <label for="username">Usuario</label>
+        <input type="text" id="username" name="username" placeholder="Introduce tu usuario...">
+    
+        <label for="password">Contraseña</label>
+  <input type="password" id="password" name="password" placeholder="Introduce tu contraseña...">
+  <button type="button" id="showPasswordButton" onclick="togglePassword()">Mostrar Contraseña</button>
+    
+        <input type="submit" value="Iniciar sesión">
+      </form>
+      <p>""</p>
+      <p>""</p>
+      <h1>Clases de Teoría</h1>
+      <div id="videos">
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/dKo3cF6s6QI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <h2 class="video-title">Análisis del error</h2>
+        </div>
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/H2G_1FjFKlc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <h2 class="video-title">Ecuaciones NO lineales</h2>
+        </div>
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/2MkBKlI4vwo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <h2 class="video-title">Sistemas de ecuaciones</h2>
+        </div>
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/VgVYAS2WQdo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <h2 class="video-title">Interpolación y Ajuste de datos</h2>
+        </div>
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/6ZPTVsNgyd0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <h2 class="video-title">Derivación e integración numérica</h2>
+        </div>
+        <div class="video-container">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/oXqRkQHXLLs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          <h2 class="video-title">Resolución numérica de ecuaciones diferenciales</h2>
+        </div>
+      </div>
+      
+    </body>
+    </html>
